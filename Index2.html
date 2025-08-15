@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Biz Khata — Smart Business Suite</title>
+  <meta name="description" content="AI expense tracker, stock P/L, Invoice Mint, map shop locator, mobile-first UI, and BizSuit API. Built with AOS animations." />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- AOS CSS (official CDN per docs) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-1: #06071a;
+      --bg-2: #071127;
+      --glass: rgba(255,255,255,0.04);
+      --muted: rgba(255,255,255,0.6);
+      --accent1: #00f5a0;
+      --accent2: #7c5cff;
+      --card: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      --glass-border: rgba(255,255,255,0.06);
+    }
+    html,body{ height:100%; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:
+      radial-gradient(600px 400px at 10% 10%, rgba(124,92,255,0.10), transparent 18%),
+      radial-gradient(500px 350px at 95% 95%, rgba(0,245,160,0.06), transparent 18%),
+      linear-gradient(180deg, var(--bg-1), var(--bg-2)); color: #eaf2ff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+    a { text-decoration:none; }
+    .nav-glass{ background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)); border-bottom:1px solid var(--glass-border); backdrop-filter: blur(6px); }
+    .brand { font-weight:800; letter-spacing: -0.5px; color: white; background: linear-gradient(90deg,var(--accent1),var(--accent2)); -webkit-background-clip: text; background-clip:text; color:transparent; font-size:1.125rem; }
+    /* HERO */
+    .hero { padding:6rem 0 3rem; position:relative; overflow:hidden; }
+    .hero .glass-card{ background:var(--card); border:1px solid var(--glass-border); border-radius:18px; padding:28px; box-shadow: 0 20px 50px rgba(2,6,23,0.6); }
+    .orb-1, .orb-2 { position:absolute; border-radius:50%; filter: blur(80px); opacity:0.55; pointer-events:none; mix-blend-mode:screen; }
+    .orb-1{ width:420px; height:420px; left:-140px; top:-90px; background: radial-gradient(circle at 30% 30%, rgba(124,92,255,0.9), transparent 40%); animation: float1 12s ease-in-out infinite; }
+    .orb-2{ width:360px; height:360px; right:-100px; bottom:-120px; background: radial-gradient(circle at 70% 70%, rgba(0,245,160,0.9), transparent 40%); animation: float2 16s ease-in-out infinite; }
+    @keyframes float1{ 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-18px) } }
+    @keyframes float2{ 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(18px) } }
+
+    /* cards */
+    .feature {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--glass-border);
+      border-radius:14px;
+      padding:22px;
+      transition: transform .35s cubic-bezier(.2,.9,.2,1), box-shadow .35s;
+    }
+    .feature:hover{ transform: translateY(-8px); box-shadow: 0 22px 50px rgba(3,6,23,0.6); }
+
+    .kpi { font-weight:800; font-size:2.25rem; }
+    .muted { color: var(--muted); }
+
+    /* AquaScript promo */
+    .promo { border-radius:14px; padding:18px; background: linear-gradient(90deg,#00c6ff 0%, #0072ff 100%); color:#021124; }
+
+    /* responsive tweaks */
+    @media (max-width:767px){
+      .hero { padding:4rem 0 2rem; }
+      .orb-1, .orb-2{ display:none; }
+    }
+
+    /* small UI niceties */
+    .pill { border-radius:999px; padding:.375rem .75rem; border:1px solid rgba(255,255,255,0.06); background: rgba(255,255,255,0.02); }
+    .cta { background: linear-gradient(90deg,var(--accent1),var(--accent2)); color:#041124; font-weight:700; box-shadow: 0 12px 30px rgba(124,92,255,0.09); border: none; }
+    .glass-input { background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.04); color: #eaf2ff; }
+
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg nav-glass py-2">
+    <div class="container">
+      <a class="navbar-brand brand" href="#">Biz Khata</a>
+      <button class="navbar-toggler btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navMenu"><i class="bi bi-list"></i></button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item me-3"><a class="nav-link text-white" href="#features">Features</a></li>
+          <li class="nav-item me-3"><a class="nav-link text-white" href="#about">About</a></li>
+          <li class="nav-item me-3"><a class="nav-link text-white" href="#aquascript">AquaScript</a></li>
+          <li class="nav-item me-3"><a class="nav-link text-white" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="orb-1" aria-hidden></div>
+    <div class="orb-2" aria-hidden></div>
+
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-7" data-aos="fade-right" data-aos-duration="900">
+          <h1 class="display-5 fw-bold">Biz Khata — Modern tools to run your small business</h1>
+          <p class="lead muted mt-3">AI expense tracking, stock P/L, professional invoices, accurate shop-locator maps, and a developer-ready BizSuit API (coming soon).</p>
+
+          <div class="d-flex gap-2 mt-4">
+            <a class="btn cta btn-lg me-2" href="https://pjdeveloper896.github.io/Bizkhatahomepage/Index.html">Get Started — Free</a>
+            <a class="btn btn-outline-light btn-lg" href="#aquascript">Visit AquaScript</a>
+          </div>
+
+          <div class="row mt-4 g-3">
+            <div class="col-sm-4" data-aos="zoom-in" data-aos-delay="200">
+              <div class="feature d-flex flex-column align-items-start">
+                <div class="kpi" data-count="1280">1,280</div>
+                <div class="muted">Active Merchants</div>
+              </div>
+            </div>
+            <div class="col-sm-4" data-aos="zoom-in" data-aos-delay="300">
+              <div class="feature d-flex flex-column align-items-start">
+                <div class="kpi" data-count="99.9">99.9</div>
+                <div class="muted">Uptime %</div>
+              </div>
+            </div>
+            <div class="col-sm-4" data-aos="zoom-in" data-aos-delay="400">
+              <div class="feature d-flex flex-column align-items-start">
+                <div class="kpi" data-count="24">24</div>
+                <div class="muted">Core Tools</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-5" data-aos="zoom-in-left" data-aos-duration="1000">
+          <div class="glass-card">
+            <!-- Live mini-demo card - uses AOS inside to show variety -->
+            <div class="d-flex justify-content-between align-items-start mb-3">
+              <div class="pill">Mobile-first</div>
+              <div class="badge bg-dark text-white">v1.3</div>
+            </div>
+
+            <div class="mb-3">
+              <div class="fw-semibold">Core Features</div>
+              <ul class="mb-0 muted small">
+                <li>📊 AI-powered expense tracker</li>
+                <li>📦 Stock tracker with automatic profit/loss</li>
+                <li>🧾 Invoice Mint for professional billing</li>
+                <li>🌐 Map-based shop locator (accurate & live)</li>
+                <li>📱 Mobile-first interface (optimized for Android tablets)</li>
+                <li href = "">4️⃣ BizSuit API — upcoming (paid plan)</li>
+              </ul>
+            </div>
+
+            <div class="mt-3 d-grid">
+              <button class="btn btn-dark" id="demoOpen"><i class="bi bi-play-circle me-2"></i>See Demo Animation</button>
+            </div>
+
+            <div class="mt-3 small muted">Founders: <strong>Hanzla Baig</strong> & <strong>Prasoon Jadon</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- FEATURES SECTION -->
+  <section id="features" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5" data-aos="fade-up">
+        <h2 class="fw-bold">Core Features</h2>
+        <p class="muted">Everything you need to manage small business operations on the go.</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- AI expense -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
+          <div class="feature h-100">
+            <div class="d-flex align-items-center mb-3">
+              <div class="me-3 display-6" style="color:var(--accent1)"><i class="bi bi-robot"></i></div>
+              <div>
+                <h5 class="mb-0">AI-powered Expense Tracker</h5>
+                <div class="muted small">Auto-categorize, receipt OCR, smart suggestions.</div>
+              </div>
+            </div>
+            <p class="small muted">Let AI tag purchases, predict recurring costs and show trends.</p>
+          </div>
+        </div>
+
+        <!-- Stock tracker -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="150">
+          <div class="feature h-100">
+            <div class="d-flex align-items-center mb-3">
+              <div class="me-3 display-6" style="color:#ffd166"><i class="bi bi-box-seam"></i></div>
+              <div>
+                <h5 class="mb-0">Stock Tracker</h5>
+                <div class="muted small">Live P/L, reorder alerts, barcode support.</div>
+              </div>
+            </div>
+            <p class="small muted">Automatic profit/loss calculations per SKU, margins & trends.</p>
+          </div>
+        </div>
+
+        <!-- Invoice Mint -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="250">
+          <div class="feature h-100">
+            <div class="d-flex align-items-center mb-3">
+              <div class="me-3 display-6" style="color:#ff8fab"><i class="bi bi-receipt"></i></div>
+              <div>
+                <h5 class="mb-0">Invoice Mint</h5>
+                <div class="muted small">Bill templates, PDF export, client profiles.</div>
+              </div>
+            </div>
+            <p class="small muted">Create branded invoices, auto-numbering, reminders & reports.</p>
+          </div>
+        </div>
+
+        <!-- Map locator -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="350">
+          <div class="feature h-100">
+            <div class="d-flex align-items-center mb-3">
+              <div class="me-3 display-6" style="color:#8bd3ff"><i class="bi bi-geo-alt"></i></div>
+              <div>
+                <h5 class="mb-0">Map-based Shop Locator</h5>
+                <div class="muted small">Live GPS, accurate pinning & directions.</div>
+              </div>
+            </div>
+            <p class="small muted">List shops, route customers, and show nearby inventory partners.</p>
+          </div>
+        </div>
+
+        <!-- Mobile-first -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="450">
+          <div class="feature h-100">
+            <div class="d-flex align-items-center mb-3">
+              <div class="me-3 display-6" style="color:#a78bfa"><i class="bi bi-phone"></i></div>
+              <div>
+                <h5 class="mb-0">Mobile-first Interface</h5>
+                <div class="muted small">Touch-first, optimized for large Android tablets.</div>
+              </div>
+            </div>
+            <p class="small muted">Fast, accessible, and optimized for 100% mobile visitors (Android tablets).</p>
+          </div>
+        </div>
+
+        <!-- BizSuit API -->
+        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="550">
+          <div class="feature h-100">
+            <div class="d-flex align-items-center mb-3">
+              <div class="me-3 display-6" style="color:#ffd166"><i class="bi bi-plug"></i></div>
+              <div>
+                <h5 class="mb-0">BizSuit API (Coming)</h5>
+                <div class="muted small">Paid plan — secure programmatic access to stock, invoices & analytics.</div>
+              </div>
+            </div>
+            <p class="small muted">Subscription model, OAuth tokens & rate-limited endpoints for business usage.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AQUASCRIPT PROMO -->
+  <section id="aquascript" class="py-5">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-8" data-aos="fade-right">
+          <div class="promo d-flex align-items-center justify-content-between">
+            <div>
+              <h4 class="fw-bold mb-1">AquaScript — Free APIs for Developers</h4>
+              <div class="muted small">Build integrations, fetch data, and prototype faster. Visit for docs & keys.</div>
+            </div>
+            <div class="text-end">
+              <a class="btn btn-light" href="https://aquascript.xyz" target="_blank">Open AquaScript →</a>
+              <div class="small mt-2 muted">Founder: <strong>Hanzla Baig</strong></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4" data-aos="fade-left">
+          <div class="feature text-center">
+            <div class="display-6 fw-bold">Free</div>
+            <div class="muted small">Developer tier</div>
+            <div class="mt-3"><a class="btn cta" href="https://aquascript.xyz" target="_blank">Get API Key</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="py-5 bg-dark" style="background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);">
+    <div class="container">
+      <div class="row g-4 align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <h3 class="fw-bold">About Biz Khata</h3>
+          <p class="muted">Founded by <strong>Hanzla Baig</strong> & <strong>Prasoon Jadon</strong>, Biz Khata is dedicated to making the daily operations of small businesses simpler — with automation, analytics and a mobile-first design philosophy.</p>
+          <ul class="muted small">
+            <li>Mission: Help 1M small merchants go digital</li>
+            <li>Vision: Simple tools, powerful outcomes</li>
+            <li>Values: Privacy, reliability, speed</li>
+          </ul>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <div class="feature p-4">
+            <div class="d-flex align-items-center gap-3">
+              <img src="https://via.placeholder.com/64/ffffff/000000?text=HB" alt="H" class="rounded-circle">
+              <div>
+                <div class="fw-bold">Hanzla Baig</div>
+                <div class="muted small">Founder — AquaScript & Co-Founder of Biz Khata</div>
+              </div>
+            </div>
+            <hr class="my-3" />
+            <div class="d-flex align-items-center gap-3">
+              <img src="https://via.placeholder.com/64/ffffff/000000?text=PJ" alt="P" class="rounded-circle">
+              <div>
+                <div class="fw-bold">Prasoon Jadon</div>
+                <div class="muted small">Founder of Biz Khata </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT & CTA -->
+  <section id="contact" class="py-5">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-md-7" data-aos="fade-up">
+          <h4 class="fw-bold">Get early access to BizSuit API</h4>
+          <p class="muted">Join the waiting list for the paid BizSuit API and get priority onboarding for your business.</p>
+
+          <form id="waitlistForm" class="row g-2">
+            <div class="col-5"><input class="form-control glass-input" placeholder="Company / Name" required></div>
+            <div class="col-5"><input class="form-control glass-input" placeholder="Email" type="email" required></div>
+            <div class="col-2"><button class="btn cta w-100" type="submit">Join</button></div>
+          </form>
+          <div id="waitMsg" class="small mt-2 muted" aria-live="polite"></div>
+        </div>
+
+        <div class="col-md-5" data-aos="fade-left">
+          <div class="feature p-4 text-center">
+            <h5 class="mb-2">Mobile-first preview</h5>
+            <div id="phonePreview" class="m-auto" style="max-width:240px;">
+              <!-- small mock phone -->
+              <div class="border rounded-4 p-3" style="background:linear-gradient(180deg,#031024,#071127);">
+                <div class="text-center mb-2 muted small">Biz Khata App</div>
+                <div class="bg-white rounded-3 p-3 text-dark">Preview content</div>
+              </div>
+            </div>
+            <div class="muted small mt-3">100% visitors so far are on Android tablets</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-4 text-center small" style="border-top:1px solid rgba(255,255,255,0.03);">
+    <div class="container">
+      <div class="mb-2">© <span id="y"></span> Biz Khata — Built with ❤️ by the AquaScript team</div>
+      <div class="muted">AquaScript: <a href="https://aquascript.xyz" target="_blank" class="text-white">aquascript.xyz</a></div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS: jQuery, Bootstrap, AOS -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- AOS JS (official CDN) -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+  <script>
+    // Initialize AOS with lively defaults
+    AOS.init({
+      offset: 120,
+      duration: 900,
+      easing: 'ease-in-out-cubic',
+      once: false,
+      mirror: false
+    });
+
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Demo: animate counts when visible (uses IntersectionObserver + requestAnimationFrame)
+    function countUp(el, target, duration=1200){
+      let start = 0; const step = (t) => {
+        const progress = Math.min(1, (t-startTime)/duration);
+        const ease = 0.5 - Math.cos(Math.PI*progress)/2;
+        el.textContent = Math.round(target*ease);
+        if(progress < 1) requestAnimationFrame(step);
+      };
+      let startTime = performance.now();
+      requestAnimationFrame(step);
+    }
+
+    // Observe AOS "in" events by listening to AOS custom events
+    document.querySelectorAll('[data-count]').forEach(el=>{
+      el.textContent = '0';
+      el.addEventListener('aos:in', () => {
+        const t = parseFloat(el.getAttribute('data-count')) || 0;
+        countUp(el, t, 1100);
+      }, {once:true});
+    });
+
+    // Demo: waitlist form handling (simple frontend simulation)
+    $('#waitlistForm').on('submit', function(e){
+      e.preventDefault();
+      $('#waitMsg').text('Thanks — you are on the waitlist! We will email you when BizSuit APIs open.');
+      // small pulse animation
+      $('#waitMsg').fadeTo(120,0.2).fadeTo(360,1);
+      this.reset();
+    });
+
+    // Interactive demo button — toggle a short animation sequence using AOS refresh
+    $('#demoOpen').on('click', function(){
+      // Add a temporary element with multiple aos animations and then remove
+      const $el = $('<div class="mt-3 p-3 rounded-3" style="background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03)">Demo animated widget</div>');
+      $el.attr('data-aos','flip-left'); $el.attr('data-aos-duration','900'); $el.attr('data-aos-delay','50');
+      $(this).closest('.glass-card').append($el);
+      AOS.refreshHard();
+      setTimeout(()=>{ $el.attr('data-aos','flip-right'); AOS.refreshHard(); }, 1200);
+      setTimeout(()=>{ $el.fadeOut(400, ()=>$el.remove()); }, 2600);
+    });
+
+    // Simple search filter for features (optional improvement)
+    // (If you want to add a search input, hook this function to filter .feature elements)
+
+    // For accessibility: enable keyboard focus style for buttons
+    $('button, a').on('keyup', function(e){ if(e.key === 'Enter'){ $(this).trigger('click'); } });
+
+    // OPTIONAL: show AOS attribute list in console (handy for devs)
+    console.info('AOS enabled — use data-aos attributes like: fade-up, zoom-in, flip-left, fade-right, etc. See docs.');
+  </script>
+
+  <!-- Java backend snippet (comment) -->
+  <!--
+    If you want to serve this page with a Java Spring Boot app, drop this file into src/main/resources/static/index.html
+    Minimal Spring Boot starter:
+
+    @SpringBootApplication
+    public class Application {
+      public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+      }
+    }
+
+    Build and run with Maven/Gradle. The static folder will be served automatically.
+  -->
+
+</body>
+</html>
